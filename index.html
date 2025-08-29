@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Resume Builder</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Professional Resume Builder</h1>
+      <p>Create your perfect resume in minutes</p>
+    </header>
+
+    <div class="main-content">
+      <!-- Form Section -->
+      <div class="form-section">
+        <h2>Resume Details</h2>
+
+        <!-- Resume Type Selection -->
+        <div class="form-group">
+          <label for="resumeType">Select Resume Type:</label>
+          <select id="resumeType" onchange="updateTemplate()">
+            <option value="corporate">Corporate/Office Job</option>
+            <option value="teacher">Teacher/Educator</option>
+            <option value="tech">Tech/IT Professional</option>
+            <option value="creative">Creative Professional</option>
+            <option value="healthcare">Healthcare Professional</option>
+          </select>
+        </div>
+
+        <!-- Personal Information -->
+        <div class="section">
+          <h3>Personal Information</h3>
+          <div class="form-row">
+            <input type="text" id="fullName" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email Address" required>
+          </div>
+          <div class="form-row">
+            <input type="tel" id="phone" placeholder="Phone Number" required>
+            <input type="text" id="location" placeholder="City, State" required>
+          </div>
+          <input type="text" id="linkedin" placeholder="LinkedIn Profile URL">
+          <input type="text" id="portfolio" placeholder="Portfolio/Website URL">
+        </div>
+
+        <!-- Professional Summary -->
+        <div class="section">
+          <h3>Professional Summary</h3>
+          <textarea id="summary" placeholder="Write a brief 2-3 sentence summary about yourself..." rows="3"></textarea>
+        </div>
+
+        <!-- Skills -->
+        <div class="section">
+          <h3>Skills</h3>
+          <div id="skillsContainer">
+            <input type="text" class="skill-input" placeholder="Enter a skill">
+          </div>
+          <button type="button" onclick="addSkill()">+ Add Skill</button>
+        </div>
+
+        <!-- Experience -->
+        <div class="section">
+          <h3>Work Experience</h3>
+          <div class="hint">Tip: Put each achievement on a new line to convert to bullets.</div>
+          <div id="experienceContainer">
+            <div class="experience-item">
+              <div class="form-row">
+                <input type="text" placeholder="Job Title">
+                <input type="text" placeholder="Company Name">
+              </div>
+              <div class="form-row">
+                <input type="text" placeholder="Start Date">
+                <input type="text" placeholder="End Date / Present">
+              </div>
+              <textarea placeholder="Achievements (one per line)..." rows="3"></textarea>
+            </div>
+          </div>
+          <button type="button" onclick="addExperience()">+ Add Experience</button>
+        </div>
+
+        <!-- Education -->
+        <div class="section">
+          <h3>Education</h3>
+          <div id="educationContainer">
+            <div class="education-item">
+              <div class="form-row">
+                <input type="text" placeholder="Degree">
+                <input type="text" placeholder="Institution">
+              </div>
+              <div class="form-row">
+                <input type="text" placeholder="Graduation Year">
+                <input type="text" placeholder="GPA (optional)">
+              </div>
+            </div>
+          </div>
+          <button type="button" onclick="addEducation()">+ Add Education</button>
+        </div>
+
+        <!-- Certifications (Optional) -->
+        <div class="section">
+          <h3>Certifications</h3>
+          <div id="certificationsContainer">
+            <input type="text" placeholder="Certification Name">
+          </div>
+          <button type="button" onclick="addCertification()">+ Add Certification</button>
+        </div>
+
+        <button type="button" onclick="generateResume()" class="generate-btn">Generate Resume</button>
+      </div>
+
+      <!-- Preview + AI Section -->
+      <div class="preview-section">
+        <h2>Resume Preview</h2>
+        <div id="resumePreview" class="resume-preview">
+          <!-- Resume will be rendered here -->
+        </div>
+        <button type="button" onclick="downloadPDF()" class="download-btn" style="display: none;"
+          id="downloadBtn">Download PDF</button>
+
+        <div class="ai-section" id="aiSection">
+          <h2>AI Job Role Suggestions</h2>
+          <p class="hint">Based on your profile, get 4 roles with fit % and next steps.</p>
+          <div id="aiSuggestions" class="ai-grid">
+            <!-- AI suggestion cards injected here -->
+          </div>
+          <div id="aiLoading" class="ai-loading" style="display:none;">Generating role suggestions…</div>
+          <div id="aiError" class="ai-error" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
